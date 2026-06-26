@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>💖 Um convite especial</title>
+    <title>🤍 Um convite especial</title>
 
     <style>
         body {
@@ -155,11 +155,11 @@
 <body>
 
     <div class="card">
-        <h1>💖 Quer sair comigo?</h1>
+        <h1>🤍 Quer sair comigo?</h1>
         <p>Eu pensei em algo especial pra nós dois...</p>
 
         <div class="buttons">
-            <button id="yes">Sim, eu aceito 💘</button>
+            <button id="yes">Sim, eu aceito 🤍</button>
             <button id="no">Não</button>
         </div>
     </div>
@@ -206,7 +206,7 @@
         function createHeart() {
             const heart = document.createElement("div");
             heart.classList.add("heart");
-            heart.innerHTML = "💖";
+            heart.innerHTML = "🤍";
             heart.style.left = Math.random() * 100 + "vw";
             heart.style.animationDuration = (3 + Math.random() * 5) + "s";
             document.body.appendChild(heart);
@@ -217,7 +217,7 @@
         setInterval(createHeart, 500);
 
         yesBtn.addEventListener("click", () => {
-            const msg = encodeURIComponent("Sim 💖 eu aceito sair com você!");
+            const msg = encodeURIComponent("Sim 🤍 eu aceito sair com você!");
             window.open(`https://wa.me/5541998743626?text=${msg}`, "_blank");
 
             const music = document.getElementById("music");
