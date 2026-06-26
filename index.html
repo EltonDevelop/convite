@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💖 Um convite especial</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 1s ease-in-out;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.10);
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
+
+            width: 90%;
+            max-width: 440px;
+            padding: 36px 28px;
+            border-radius: 24px;
+
+            /* equilíbrio perfeito */
+            background: rgba(20, 20, 20, 0.35);
+
+            border: 1px solid rgba(255, 255, 255, 0.10);
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.30),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+
+            text-align: center;
+            color: #fff;
+
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 14px;
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            position: relative;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 12px 26px;
+            border-radius: 999px;
+            transition: all 0.25s ease;
+            font-weight: 500;
+        }
+
+        #yes {
+            background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
+            color: white;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.35);
+            position: relative;
+            z-index: 2;
+        }
+
+        #yes:hover {
+            transform: translateY(-2px) scale(1.03);
+        }
+
+        #no {
+            position: absolute;
+            left: 50%;
+            top: calc(50% + 70px);
+            transform: translate(-50%, -50%);
+
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 192, 203, 0.8);
+            animation: float 6s linear infinite;
+            font-size: 18px;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                width: 88%;
+                padding: 24px 18px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 13px;
+            }
+
+            .buttons {
+                height: 140px;
+            }
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>💖 Quer sair comigo?</h1>
+        <p>Eu pensei em algo especial pra nós dois...</p>
+
+        <div class="buttons">
+            <button id="yes">Sim, eu aceito 💘</button>
+            <button id="no">Não</button>
+        </div>
+    </div>
+
+    <!-- Música romântica -->
+    <audio id="music" autoplay loop>
+        <source src="assets/musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const noBtn = document.getElementById("no");
+        const yesBtn = document.getElementById("yes");
+        const card = document.querySelector(".card");
+
+        const phone = "5541998743626";
+
+        yesBtn.addEventListener("click", () => {
+            const msg = encodeURIComponent("Sim, eu aceito sair contigo!");
+            window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+        });
+
+        function moveButton() {
+            const cardRect = card.getBoundingClientRect();
+
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            const padding = 10;
+
+            const maxX = cardRect.width - btnWidth - padding;
+            const maxY = cardRect.height - btnHeight - padding;
+
+            const x = padding + Math.random() * maxX;
+            const y = padding + Math.random() * maxY;
+
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
+
+        noBtn.addEventListener("mouseover", moveButton);
+        noBtn.addEventListener("click", moveButton);
+        noBtn.addEventListener("touchstart", moveButton);
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "💖";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (3 + Math.random() * 5) + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 7000);
+        }
+
+        setInterval(createHeart, 500);
+
+        yesBtn.addEventListener("click", () => {
+            const msg = encodeURIComponent("Sim 💖 eu aceito sair com você!");
+            window.open(`https://wa.me/5541998743626?text=${msg}`, "_blank");
+
+            const music = document.getElementById("music");
+
+            music.volume = 0.6; // volume agradável
+            music.play().catch(() => {
+                console.log("Autoplay bloqueado, mas não é problema aqui.");
+            });
+        });
+
+        const images = [
+            "assets/imagem1.jpeg",
+            "assets/imagem2.jpeg",
+            "assets/imagem3.jpeg",
+            "assets/imagem4.jpeg",
+            "assets/imagem5.jpeg",
+            "assets/imagem6.jpeg",
+            "assets/imagem8.jpeg",
+            "assets/imagem9.jpeg",
+        ];
+
+        let index = 0;
+
+        function changeBackground() {
+            document.body.style.backgroundImage = `url('${images[index]}')`;
+            index = (index + 1) % images.length;
+        }
+
+        // inicia imediatamente
+        changeBackground();
+
+        // troca a cada 2 segundos
+        setInterval(changeBackground, 2000);
+    </script>
+
+</body>
+
+</html>
